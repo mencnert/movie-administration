@@ -2,8 +2,8 @@ package com.mencner.movieadministration
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.ListView
+import com.mencner.movieadministration.adapter.MovieAdapter
 import com.mencner.movieadministration.model.Movie
 import com.mencner.movieadministration.service.MovieDbService
 
@@ -15,12 +15,12 @@ class MovieListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_list)
 
         val movieService = MovieDbService()
-        val linearLayout: LinearLayout = findViewById(R.id.info)
-        val movies: List<Movie> = movieService.getMovies()
-        for (movie in movies) {
-            val view = TextView(this)
-            view.text = "%d: %s".format(movie.id, movie.name)
-            linearLayout.addView(view)
-        }
+        val listView: ListView = findViewById(R.id.movies_list)
+
+        var l = movieService.getMovies(Movie.EVALUATION)
+
+        val movieAdapter = MovieAdapter(this, R.layout.movie_item, l.toList())
+
+        listView.adapter = movieAdapter
     }
 }

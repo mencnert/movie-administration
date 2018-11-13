@@ -4,13 +4,25 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-class Movie(@JsonProperty("id")
+class Movie(@JsonProperty(ID)
             var id: Long,
-            @JsonProperty("name")
+            @JsonProperty(NAME)
             var name: String,
-            @JsonProperty("year")
+            @JsonProperty(YEAR)
             var year: Int,
-            @JsonProperty("genre")
+            @JsonProperty(GENRE)
             var genre: String,
-            @JsonProperty("director")
-            var director: String)
+            @JsonProperty(DIRECTOR)
+            var director: String,
+            @JsonProperty(EVALUATION)
+            var evaluation: Float) {
+
+    companion object {
+        const val ID = "id"
+        const val NAME = "name"
+        const val YEAR = "year"
+        const val DIRECTOR = "director"
+        const val EVALUATION = "evaluation"
+        const val GENRE ="genre"
+    }
+}

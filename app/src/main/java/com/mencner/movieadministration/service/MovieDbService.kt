@@ -6,8 +6,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate
 
 class MovieDbService {
-    val restTemplate = RestTemplate()
-    val BASE_URL: String = "http://192.168.0.16:8080"
+    private val restTemplate = RestTemplate()
+    private val BASE_URL: String = "http://192.168.0.16:8080"
 
     init{
         restTemplate.messageConverters.add(MappingJackson2HttpMessageConverter())
@@ -18,7 +18,11 @@ class MovieDbService {
         StrictMode.setThreadPolicy(policy)
     }
 
-    fun getMovies(): List<Movie> {
-        return restTemplate.getForObject(BASE_URL + "/movies", Array<Movie>::class.java).toList()
+    fun getMovies(orderBy: String): Array<Movie> {
+        var l = restTemplate.getForObject("$BASE_URL/movies?orderBy={}",
+                Array<Movie>::class.java,
+                orderBy)
+        l.sortedWith(compareBy({it.name}))
+        return l
     }
 }
