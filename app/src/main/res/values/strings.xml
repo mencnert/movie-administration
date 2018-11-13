@@ -10,7 +10,11 @@
 
     <string name="button_save_changes">Save changes</string>
     <string name="button_delete">Delete</string>
+    <string name="button_search">Search</string>
+    <string name="button_create_new">New</string>
 
     <string name="toast_saved">Saved</string>
     <string name="toast_deleted">Deleted</string>
+
+    <string name="edit_hint_movie_name">Movie name</string>
 </resources>
