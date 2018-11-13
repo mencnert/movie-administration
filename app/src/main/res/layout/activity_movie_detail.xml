@@ -5,116 +5,142 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetailActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent" >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:text="@string/name"/>
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".75"
-                android:inputType="text"
-                android:hint="@string/name"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="@string/name"/>
 
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:inputType="text"
+                    android:hint="@string/name"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="@string/year"/>
+
+                <EditText
+                    android:id="@+id/year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:inputType="number"
+                    android:hint="@string/year"
+                    android:maxLength="4"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="@string/genre"/>
+
+                <EditText
+                    android:id="@+id/genre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:inputType="text"
+                    android:hint="@string/genre"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="@string/director"/>
+
+                <EditText
+                    android:id="@+id/director"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:inputType="text"
+                    android:hint="@string/director"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="@string/evaluation"/>
+
+                <EditText
+                    android:id="@+id/evaluation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:inputType="numberDecimal"
+                    android:maxLength="3"
+                    android:hint="@string/zero_to_ten"/>
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:text="@string/year"/>
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true" >
 
-            <EditText
-                android:id="@+id/year"
+            <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".75"
-                android:inputType="number"
-                android:hint="@string/year"
-                android:maxLength="4"/>
+                android:layout_weight=".50"
+                android:text="@string/button_delete"
+                android:background="@android:color/holo_red_dark"
+                android:textColor="@android:color/white"
+                android:onClick="delete"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:text="@string/button_save_changes"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:onClick="saveChanges"/>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:text="@string/genre"/>
-
-            <EditText
-                android:id="@+id/genre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".75"
-                android:inputType="text"
-                android:hint="@string/genre"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:text="@string/director"/>
-
-            <EditText
-                android:id="@+id/director"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".75"
-                android:inputType="text"
-                android:hint="@string/director"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:text="@string/evaluation"/>
-
-            <EditText
-                android:id="@+id/evaluation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".75"
-                android:inputType="numberDecimal"
-                android:maxLength="3"
-                android:hint="@string/zero_to_ten"/>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -18,11 +18,12 @@ class MovieDbService {
         StrictMode.setThreadPolicy(policy)
     }
 
-    fun getMovies(orderBy: String): Array<Movie> {
-        var l = restTemplate.getForObject("$BASE_URL/movies?orderBy={}",
+    fun getMoviesByName(name: String): Array<Movie> {
+        val url = BASE_URL + if (name.equals("")) "/movie?name=" else "/movie?name={}"
+        val movies = restTemplate.getForObject(url,
                 Array<Movie>::class.java,
-                orderBy)
-        l.sortedWith(compareBy({it.name}))
-        return l
+                name)
+        movies.sortedWith(compareBy{it.name})
+        return movies
     }
 }
