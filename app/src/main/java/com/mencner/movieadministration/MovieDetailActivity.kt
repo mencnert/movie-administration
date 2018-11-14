@@ -1,9 +1,11 @@
 package com.mencner.movieadministration
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.mencner.movieadministration.model.Movie
@@ -12,6 +14,7 @@ import com.mencner.movieadministration.service.MovieDbService
 class MovieDetailActivity : AppCompatActivity() {
     val movieService = MovieDbService()
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -31,6 +34,10 @@ class MovieDetailActivity : AppCompatActivity() {
             customizeEditText(R.id.genre,  mMovie.genre)
             customizeEditText(R.id.director, mMovie.director)
             customizeEditText(R.id.evaluation, mMovie.evaluation.toString())
+        } else {
+            val deleteButton = findViewById<Button>(R.id.button_delete)
+            deleteButton.isEnabled = false
+            deleteButton.alpha = .3f
         }
     }
 
@@ -49,11 +56,17 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val movie = Movie(id, name, year, genre, director, evaluation)
         movieService.updateMovie(movie)
+
         Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show()
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+
     }
 
     fun delete(view: View) {
-        Toast.makeText(this, R.string.toast_deleted, Toast.LENGTH_SHORT).show()
+        movieService.deleteMovie(intent.getLongExtra(Movie.ID, 0))
+        Toast.makeText(this, R.string.toast_deleted, Toast.LENGTH_LONG).show()
         setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }
