@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.Toast
 import com.mencner.movieadministration.model.Movie
 import com.mencner.movieadministration.service.MovieDbService
+import java.util.*
+import kotlin.math.roundToInt
 
 class MovieDetailActivity : AppCompatActivity() {
     val movieService = MovieDbService()
@@ -39,6 +41,13 @@ class MovieDetailActivity : AppCompatActivity() {
             deleteButton.isEnabled = false
             deleteButton.alpha = .3f
         }
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+    }
+
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 
     private fun customizeEditText(resourceId : Int, text: String) {

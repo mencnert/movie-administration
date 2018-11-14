@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate
 
 class MovieDbService {
     private val restTemplate = RestTemplate()
-    private val BASE_URL: String = "http://10.14.3.152:8080"
+    private val BASE_URL: String = "http://192.168.0.16:8080"
 
     init{
         restTemplate.messageConverters.add(MappingJackson2HttpMessageConverter())

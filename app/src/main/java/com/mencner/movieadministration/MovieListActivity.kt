@@ -83,12 +83,12 @@ class MovieListActivity : AppCompatActivity() {
 
     fun hideKeyboard() {
         findViewById<View>(R.id.view_for_focus).requestFocus()
-//        try {
-//            val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//            inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,
-//                    InputMethodManager.HIDE_NOT_ALWAYS)
-//        } catch (ex: NullPointerException) {
-//            //
-//        }
+        try {
+            val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(currentFocus!!.windowToken,
+                    InputMethodManager.HIDE_NOT_ALWAYS)
+        } catch (ex: NullPointerException) {
+            //
+        }
     }
 }
