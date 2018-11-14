@@ -2,6 +2,8 @@ package com.mencner.movieadministration.service
 
 import android.os.StrictMode
 import com.mencner.movieadministration.model.Movie
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpMethod
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestTemplate
 
@@ -19,11 +21,22 @@ class MovieDbService {
     }
 
     fun getMoviesByName(name: String): Array<Movie> {
-        val url = BASE_URL + if (name.equals("")) "/movie?name=" else "/movie?name={}"
+        println("name: $name")
+
+        val url = BASE_URL + if (name.equals("")) "/movie?name=" else "/movie?name=$name"
+        println("url: $url")
         val movies = restTemplate.getForObject(url,
-                Array<Movie>::class.java,
-                name)
-        movies.sortedWith(compareBy{it.name})
+                Array<Movie>::class.java)
+        movies.sortBy { it.name }
         return movies
+    }
+
+    fun updateMovie(movie: Movie) {
+        val entity = HttpEntity<Movie>(movie)
+        val id = movie.id
+        restTemplate.exchange("$BASE_URL/movie/$id",
+                HttpMethod.PUT,
+                entity,
+                Movie::class.java)
     }
 }

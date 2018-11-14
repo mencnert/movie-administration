@@ -7,15 +7,16 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.mencner.movieadministration.model.Movie
+import com.mencner.movieadministration.service.MovieDbService
 
 class MovieDetailActivity : AppCompatActivity() {
-
+    val movieService = MovieDbService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        // if id == 0 -> activity for new movie
+        // if id == 0 -> empty activity for new movie
         if (intent.getLongExtra(Movie.ID, 0) != 0L) {
             val mMovie = Movie( intent.getLongExtra(Movie.ID, 0),
                     intent.getStringExtra(Movie.NAME),
@@ -39,6 +40,15 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     fun saveChanges(view: View) {
+        val id = intent.getLongExtra(Movie.ID, 0)
+        val name = findViewById<EditText>(R.id.name).text.toString()
+        val year = findViewById<EditText>(R.id.year).text.toString().toInt()
+        val genre = findViewById<EditText>(R.id.genre).text.toString()
+        val director = findViewById<EditText>(R.id.director).text.toString()
+        val evaluation = findViewById<EditText>(R.id.evaluation).text.toString().toFloat()
+
+        val movie = Movie(id, name, year, genre, director, evaluation)
+        movieService.updateMovie(movie)
         Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show()
     }
 
