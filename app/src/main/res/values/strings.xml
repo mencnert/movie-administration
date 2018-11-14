@@ -3,7 +3,7 @@
 
     <string name="name">Name</string>
     <string name="year">Year</string>
-    <string name="genre">Genre</string>
+    <string name="genre">Genres</string>
     <string name="director">Director</string>
     <string name="evaluation">Evaluation</string>
     <string name="zero_to_ten">0 to 10</string>
@@ -15,6 +15,12 @@
 
     <string name="toast_saved">Saved</string>
     <string name="toast_deleted">Deleted</string>
+
+    <string name="toast_movie_name">Please fill the name of movie.</string>
+    <string name="toast_movie_year">Year is not in range 1990 to %d</string>
+    <string name="toast_movie_genre">Please fill the genres.</string>
+    <string name="toast_movie_director">Please fill the director\'s name.</string>
+    <string name="toast_movie_evaluation">Evaluation is not in range 0 to 10.</string>
 
     <string name="edit_hint_movie_name">Movie name</string>
 </resources>

@@ -58,10 +58,39 @@ class MovieDetailActivity : AppCompatActivity() {
     fun saveChanges(view: View) {
         val id = intent.getLongExtra(Movie.ID, 0)
         val name = findViewById<EditText>(R.id.name).text.toString()
-        val year = findViewById<EditText>(R.id.year).text.toString().toInt()
+        val year = findViewById<EditText>(R.id.year).text.toString().toIntOrNull()
         val genre = findViewById<EditText>(R.id.genre).text.toString()
         val director = findViewById<EditText>(R.id.director).text.toString()
-        val evaluation = findViewById<EditText>(R.id.evaluation).text.toString().toFloat()
+        val evaluation = findViewById<EditText>(R.id.evaluation).text.toString().toFloatOrNull()
+
+        if (name.isNullOrEmpty()) {
+            Toast.makeText(this, R.string.toast_movie_name, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        if (year !in 1900..currentYear || year == null) {
+            val toastText = String.format(
+                    resources.getString(R.string.toast_movie_year),
+                    currentYear)
+            Toast.makeText(this, toastText, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        if (genre.isNullOrEmpty()) {
+            Toast.makeText(this, R.string.toast_movie_genre, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        if (director.isNullOrEmpty()) {
+            Toast.makeText(this, R.string.toast_movie_director, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        if (evaluation == null || evaluation.times(10).roundToInt() !in 0..100) {
+            Toast.makeText(this, R.string.toast_movie_evaluation, Toast.LENGTH_LONG).show()
+            return
+        }
 
         val movie = Movie(id, name, year, genre, director, evaluation)
         movieService.updateMovie(movie)
