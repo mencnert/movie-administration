@@ -71,12 +71,14 @@ class MovieListActivity : AppCompatActivity() {
 
         val movieAdapter = MovieAdapter(this, R.layout.movie_item, movies.toList())
 
-        Thread.sleep(2000)
         listView.adapter = movieAdapter
     }
 
     fun newMovie(v: View) {
         val intent = Intent(this, MovieDetailActivity::class.java)
+        val searchText = findViewById<EditText>(R.id.edit_search).text.toString()
+        intent.putExtra(SEARCH_TEXT_KEY, searchText)
+        //TODO: load search text after new movie activity
 
         startActivityForResult(intent, ACTIVITY_NEW_REQUEST_CODE)
     }
