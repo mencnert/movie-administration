@@ -93,9 +93,16 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
         val movie = Movie(id, name, year, genre, director, evaluation)
-        movieService.updateMovie(movie)
 
-        Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show()
+        if (id == 0L) {
+            // create new
+            movieService.createNewMovie(movie)
+            Toast.makeText(this, R.string.toast_created_new, Toast.LENGTH_SHORT).show()
+        } else {
+            // update existing
+            movieService.updateMovie(movie)
+            Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show()
+        }
         setResult(Activity.RESULT_OK, intent)
         finish()
 

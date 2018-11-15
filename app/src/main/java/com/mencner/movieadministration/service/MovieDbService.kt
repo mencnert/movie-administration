@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate
 
 class MovieDbService {
     private val restTemplate = RestTemplate()
-    private val BASE_URL: String = "http://192.168.0.16:8080"
+    private val BASE_URL: String = "http://10.14.3.152:8080"
 
     init{
         restTemplate.messageConverters.add(MappingJackson2HttpMessageConverter())
@@ -27,7 +27,7 @@ class MovieDbService {
         println("url: $url")
         val movies = restTemplate.getForObject(url,
                 Array<Movie>::class.java)
-        movies.sortBy { it.name }
+        movies.sortBy { it.name.toLowerCase() }
         return movies
     }
 
@@ -38,6 +38,11 @@ class MovieDbService {
                 HttpMethod.PUT,
                 entity,
                 Movie::class.java)
+    }
+
+    fun createNewMovie(movie: Movie) {
+        val entity = HttpEntity<Movie>(movie)
+        restTemplate.postForObject("$BASE_URL/movie", entity, Movie::class.java)
     }
 
     fun deleteMovie(movie: Movie) {

@@ -19,7 +19,7 @@ class MovieListActivity : AppCompatActivity() {
     private val ACTIVITY_NEW_REQUEST_CODE: Int = 1
     private val SEARCH_TEXT_KEY = "SEARCH"
 
-    val movieService = MovieDbService()
+    private val movieService = MovieDbService()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,12 +78,11 @@ class MovieListActivity : AppCompatActivity() {
         val intent = Intent(this, MovieDetailActivity::class.java)
         val searchText = findViewById<EditText>(R.id.edit_search).text.toString()
         intent.putExtra(SEARCH_TEXT_KEY, searchText)
-        //TODO: load search text after new movie activity
 
         startActivityForResult(intent, ACTIVITY_NEW_REQUEST_CODE)
     }
 
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         findViewById<View>(R.id.view_for_focus).requestFocus()
         try {
             val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
