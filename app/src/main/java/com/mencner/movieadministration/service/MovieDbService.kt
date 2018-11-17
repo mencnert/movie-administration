@@ -12,8 +12,9 @@ import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestTemplate
 
 class MovieDbService {
+    private val ADDRESS = "192.168.0.7"
+    private val BASE_URL: String = "http://$ADDRESS:8080"
     private val restTemplate = RestTemplate()
-    private val BASE_URL: String = "http://192.168.0.7:8080"
 
     init{
         restTemplate.messageConverters.add(MappingJackson2HttpMessageConverter())
