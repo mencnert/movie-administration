@@ -61,7 +61,7 @@ class MovieListActivity : AppCompatActivity() {
     fun displayResult(v: View) {
         hideKeyboard()
         val searchText = findViewById<EditText>(R.id.edit_search).text.toString()
-        val listView: ListView = findViewById(R.id.movies_list)
+        val listView = findViewById<ListView>(R.id.movies_list)
         var movies: Array<Movie>
         try {
             movies = movieService.getMoviesByName(searchText)
@@ -69,7 +69,7 @@ class MovieListActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.toast_server, Toast.LENGTH_LONG).show()
             movies = arrayOf<Movie>()
         }
-        listView.setOnItemClickListener {parent, view, position, id ->
+        listView.setOnItemClickListener {_, _, position, _ ->
             val currentMovie = movies[position]
             val intent = Intent(this, MovieDetailActivity::class.java)
 
