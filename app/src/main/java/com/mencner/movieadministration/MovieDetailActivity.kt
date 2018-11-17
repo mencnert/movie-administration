@@ -41,8 +41,6 @@ class MovieDetailActivity : AppCompatActivity() {
             deleteButton.isEnabled = false
             deleteButton.alpha = .3f
         }
-
-        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
     override fun onBackPressed() {
