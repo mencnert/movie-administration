@@ -18,25 +18,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            style="@style/AppTheme">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_create_new"
-                    android:layout_alignParentRight="true"
-                    android:onClick="newMovie" />
-            </RelativeLayout>
-
-        </android.support.v7.widget.Toolbar>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

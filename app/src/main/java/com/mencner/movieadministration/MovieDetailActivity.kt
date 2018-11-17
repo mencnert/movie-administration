@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.mencner.movieadministration.model.Movie
 import com.mencner.movieadministration.service.MovieDbService
+import org.springframework.web.client.ResourceAccessException
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -48,10 +49,6 @@ class MovieDetailActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun customizeEditText(resourceId : Int, text: String) {
-        val editText = findViewById<EditText>(resourceId)
-        editText.setText(text)
-    }
 
     fun saveChanges(view: View) {
         val id = intent.getLongExtra(Movie.ID, 0)
@@ -93,23 +90,47 @@ class MovieDetailActivity : AppCompatActivity() {
         val movie = Movie(id, name, year, genre, director, evaluation)
 
         if (id == 0L) {
-            // create new
-            movieService.createNewMovie(movie)
-            Toast.makeText(this, R.string.toast_created_new, Toast.LENGTH_SHORT).show()
+            createNew(movie)
         } else {
-            // update existing
-            movieService.updateMovie(movie)
-            Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_SHORT).show()
+            updateExisting(movie)
         }
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-
     }
 
     fun delete(view: View) {
-        movieService.deleteMovie(intent.getLongExtra(Movie.ID, 0))
-        Toast.makeText(this, R.string.toast_deleted, Toast.LENGTH_LONG).show()
-        setResult(Activity.RESULT_OK, intent)
-        finish()
+        try {
+            movieService.deleteMovie(intent.getLongExtra(Movie.ID, 0))
+            Toast.makeText(this, R.string.toast_deleted, Toast.LENGTH_LONG).show()
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        } catch (ex: ResourceAccessException) {
+            Toast.makeText(this, R.string.toast_server, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun createNew(movie: Movie) {
+        try {
+            movieService.createNewMovie(movie)
+            Toast.makeText(this, R.string.toast_created_new, Toast.LENGTH_SHORT).show()
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        } catch (ex: ResourceAccessException) {
+            Toast.makeText(this, R.string.toast_server, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun updateExisting(movie: Movie) {
+        try {
+            movieService.updateMovie(movie)
+            Toast.makeText(this, R.string.toast_saved, Toast.LENGTH_LONG).show()
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        } catch (ex: ResourceAccessException) {
+            Toast.makeText(this, R.string.toast_server, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun customizeEditText(resourceId : Int, text: String) {
+        val editText = findViewById<EditText>(resourceId)
+        editText.setText(text)
     }
 }

@@ -17,6 +17,7 @@
     <string name="toast_saved">Saved</string>
     <string name="toast_deleted">Deleted</string>
     <string name="toast_created_new">New movie was created.</string>
+    <string name="toast_server">Server is not available.</string>
 
     <string name="toast_movie_name">Please fill the name of movie.</string>
     <string name="toast_movie_year">Year is not in range 1900 to %d</string>
@@ -25,4 +26,6 @@
     <string name="toast_movie_evaluation">Evaluation is not in range 0 to 10.</string>
 
     <string name="edit_hint_movie_name">Movie name</string>
+
+    <string name="menu_add_movie">Add movie</string>
 </resources>

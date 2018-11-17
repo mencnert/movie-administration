@@ -4,13 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import com.mencner.movieadministration.adapter.MovieAdapter
 import com.mencner.movieadministration.model.Movie
 import com.mencner.movieadministration.service.MovieDbService
+import org.springframework.web.client.ResourceAccessException
 
 
 class MovieListActivity : AppCompatActivity() {
@@ -25,6 +29,12 @@ class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
+
+        try {
+            movieService.getMoviesByName("Testing text!@#$%^&*()")
+        } catch (ex: ResourceAccessException) {
+            Toast.makeText(this, R.string.toast_server, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -52,8 +62,13 @@ class MovieListActivity : AppCompatActivity() {
         hideKeyboard()
         val searchText = findViewById<EditText>(R.id.edit_search).text.toString()
         val listView: ListView = findViewById(R.id.movies_list)
-        val movies = movieService.getMoviesByName(searchText)
-
+        var movies: Array<Movie>
+        try {
+            movies = movieService.getMoviesByName(searchText)
+        } catch (ex: ResourceAccessException) {
+            Toast.makeText(this, R.string.toast_server, Toast.LENGTH_LONG).show()
+            movies = arrayOf<Movie>()
+        }
         listView.setOnItemClickListener {parent, view, position, id ->
             val currentMovie = movies[position]
             val intent = Intent(this, MovieDetailActivity::class.java)
@@ -74,7 +89,21 @@ class MovieListActivity : AppCompatActivity() {
         listView.adapter = movieAdapter
     }
 
-    fun newMovie(v: View) {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.add -> newMovie()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun newMovie() {
         val intent = Intent(this, MovieDetailActivity::class.java)
         val searchText = findViewById<EditText>(R.id.edit_search).text.toString()
         intent.putExtra(SEARCH_TEXT_KEY, searchText)
